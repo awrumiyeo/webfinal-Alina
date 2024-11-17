@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Static Visualizations</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+    }
+
+    canvas {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Static Visualizations</h1>
+
+    <!-- Chart Containers -->
+    <canvas id="chart1"></canvas>
+    <canvas id="chart2"></canvas>
+  </div>
+
+  <script>
+    // Example Data for Static Visualizations
+    const chart1Data = {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+      datasets: [{
+        label: "API Data Usage",
+        data: [12, 19, 3, 5, 2],
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      }],
+    };
+
+    const chart2Data = {
+      labels: ["A", "B", "C", "D", "E"],
+      datasets: [{
+        label: "Category Distribution",
+        data: [10, 20, 30, 40, 50],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(153, 102, 255, 0.2)"
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)"
+        ],
+        borderWidth: 1,
+      }],
+    };
+
+    // Chart 1: Bar Chart
+    const ctx1 = document.getElementById("chart1").getContext("2d");
+    new Chart(ctx1, {
+      type: "bar",
+      data: chart1Data,
+      options: {
+        responsive: true,
+      },
+    });
+
+    // Chart 2: Pie Chart
+    const ctx2 = document.getElementById("chart2").getContext("2d");
+    new Chart(ctx2, {
+      type: "pie",
+      data: chart2Data,
+      options: {
+        responsive: true,
+      },
+    });
+  </script>
+</body>
+</html>

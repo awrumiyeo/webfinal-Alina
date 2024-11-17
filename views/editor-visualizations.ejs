@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor Visualizations</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+    }
+
+    canvas {
+      margin: 20px 0;
+    }
+
+    form {
+      margin: 20px 0;
+    }
+
+    form input,
+    form button {
+      padding: 10px;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Create Custom Visualization</h1>
+
+    <!-- Form to Create Visualization -->
+    <form id="visualizationForm">
+      <input type="text" id="chartTitle" placeholder="Chart Title" required>
+      <input type="text" id="chartLabels" placeholder="Labels (comma-separated)" required>
+      <input type="text" id="chartData" placeholder="Data (comma-separated)" required>
+      <button type="submit">Create Chart</button>
+    </form>
+
+    <!-- Custom Chart -->
+    <canvas id="customChart"></canvas>
+  </div>
+
+  <script>
+    const form = document.getElementById("visualizationForm");
+    const customChartCanvas = document.getElementById("customChart");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const title = document.getElementById("chartTitle").value;
+      const labels = document.getElementById("chartLabels").value.split(",");
+      const data = document.getElementById("chartData").value.split(",").map(Number);
+
+      const ctx = customChartCanvas.getContext("2d");
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels,
+          datasets: [{
+            label: title,
+            data,
+            backgroundColor: "rgba(153, 102, 255, 0.2)",
+            borderColor: "rgba(153, 102, 255, 1)",
+            borderWidth: 1,
+          }],
+        },
+        options: {
+          responsive: true,
+        },
+      });
+    });
+  </script>
+</body>
+</html>

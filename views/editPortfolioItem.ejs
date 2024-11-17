@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Редактировать элемент портфолио</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <ul>
+      <li><a href="/">Главная</a></li>
+      <li><a href="/login">Войти</a></li>
+      <li><a href="/register">Зарегистрироваться</a></li>
+      <li><a href="/portfolio">Портфолио</a></li>
+    </ul>
+  </nav>
+
+  <h1>Редактировать элемент: <%= item.title %></h1>
+
+  <form action="/portfolio/edit/<%= item._id %>" method="POST" enctype="multipart/form-data">
+    <div>
+      <label for="title">Заголовок</label>
+      <input type="text" name="title" id="title" value="<%= item.title %>" required>
+    </div>
+    <div>
+      <label for="description">Описание</label>
+      <textarea name="description" id="description" required><%= item.description %></textarea>
+    </div>
+    <div>
+      <label for="images">Обновить изображения (не более 3)</label>
+      <input type="file" name="images" id="images" multiple>
+    </div>
+    <button type="submit">Сохранить изменения</button>
+  </form>
+
+  <footer>
+    <p>&copy; 2024 Portfolio Platform. Все права защищены.</p>
+  </footer>
+
+  <script src="/scripts.js"></script>
+</body>
+</html>

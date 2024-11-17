@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column; /* Enable flexbox on body */
+      min-height: 100vh; /* Ensure the body takes at least the full height of the viewport */
+      background-color: #f4f4f4;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      background: #333;
+      color: white;
+    }
+
+    nav ul li {
+      margin: 0;
+      padding: 10px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      display: inline-block;
+    }
+
+    nav ul li a:hover {
+      background: #555;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .portfolio-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin: 20px auto;
+      max-width: 800px;
+      flex: 1; /* Allows this section to grow and push the footer down */
+    }
+
+    .carousel-section {
+      text-align: center;
+    }
+
+    .carousel {
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+      height: 350px; /* Adjusted height */
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel img {
+      min-width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .carousel-controls {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .carousel-controls button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .carousel-controls button:hover {
+      background: #0056b3;
+    }
+
+    .albums-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .albums-section li {
+      padding: 5px;
+      background: #fff;
+      margin: 5px 0;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .item {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 5px;
+      background: #f9f9f9;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 100%;
+    }
+
+    .item img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .buttons {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .buttons button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .create-form {
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    .create-form input,
+    .create-form textarea {
+      display: block;
+      margin-bottom: 10px;
+      padding: 8px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: white;
+      margin-top: auto; /* Pushes the footer to the bottom of the page */
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/logout">Logout</a></li>
+    <li><a href="/portfolio">Portfolio</a></li>
+  </ul>
+</nav>
+
+<h1>My Portfolio</h1>
+
+<div class="portfolio-container">
+  <!-- Carousel Section -->
+  <section class="carousel-section">
+    <h2>Photo Gallery</h2>
+    <div class="carousel" id="carousel">
+      <img src="https://kplaceshop.com/cdn/shop/files/bts-map-of-the-soul-4th-album-version-1-main-image_1200x.jpg?v=1698861902" alt="Photo 1">
+      <img src="https://bts101.info/wp-content/uploads/2022/05/Tear-all-1024x372.webp" alt="Photo 2">
+      <img src="https://i.pinimg.com/474x/34/3d/fe/343dfece37725ee59c1a9725c7d332cb.jpg" alt="Photo 3">
+    </div>
+    <div class="carousel-controls">
+      <button onclick="prevSlide()">Previous</button>
+      <button onclick="nextSlide()">Next</button>
+    </div>
+
+    <!-- BTS Albums Section -->
+    <section class="albums-section">
+      <h2>BTS Albums</h2>
+      <ul>
+        <li><strong>2 Cool 4 Skool</strong> (2013)</li>
+        <li><strong>Dark & Wild</strong> (2014)</li>
+        <li><strong>Wings</strong> (2016)</li>
+        <li><strong>Love Yourself: Tear</strong> (2018)</li>
+        <li><strong>Map of the Soul: 7</strong> (2020)</li>
+        <li><strong>BE</strong> (2020)</li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- Dynamic Portfolio Section -->
+  <% if (user.role === 'admin' || user.role === 'editor') { %>
+  <form action="/portfolio/create" method="POST" class="create-form">
+    <input type="text" name="title" placeholder="Title" required>
+    <textarea name="description" placeholder="Description" rows="3" required></textarea>
+    <input type="text" name="images" placeholder="Image URLs (comma-separated)" required>
+    <button type="submit">Create Item</button>
+  </form>
+  <% } %>
+
+  <% items.forEach(item => { %>
+  <div class="item">
+    <h3><%= item.title %></h3>
+    <p><%= item.description %></p>
+    <div>
+      <% item.images.forEach(image => { %>
+      <img src="<%= image %>" alt="Image">
+      <% }) %>
+    </div>
+
+    <% if (user.role === 'admin') { %>
+    <div class="buttons">
+      <form action="/portfolio/update/<%= item._id %>" method="POST">
+        <button type="submit">Update</button>
+      </form>
+      <form action="/portfolio/delete/<%= item._id %>" method="POST">
+        <button type="submit" style="background: red; color: white;">Delete</button>
+      </form>
+    </div>
+    <% } else if (user.role === 'editor') { %>
+    <div class="buttons">
+      <button disabled style="background: gray; color: white;">Edit (Restricted)</button>
+      <form action="/portfolio/delete/<%= item._id %>" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+    <% } %>
+  </div>
+  <% }) %>
+</div>
+
+<footer>
+  <p>&copy; 2024 Portfolio Platform</p>
+</footer>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('#carousel img');
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.style.transform = `translateX(${(i - index) * 100}%)`;
+    });
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
+    showSlide(currentSlide);
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
+    showSlide(currentSlide);
+  }
+
+  showSlide(currentSlide);
+
+  
+</script>
+</body>
+</html>

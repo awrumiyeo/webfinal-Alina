@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Добавить элемент в портфолио</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <ul>
+      <li><a href="/">Главная</a></li>
+      <li><a href="/login">Войти</a></li>
+      <li><a href="/register">Зарегистрироваться</a></li>
+      <li><a href="/portfolio">Портфолио</a></li>
+    </ul>
+  </nav>
+
+  <h1>Добавить новый элемент в портфолио</h1>
+
+  <form action="/portfolio" method="POST" enctype="multipart/form-data">
+    <div>
+      <label for="title">Заголовок</label>
+      <input type="text" name="title" id="title" required>
+    </div>
+    <div>
+      <label for="description">Описание</label>
+      <textarea name="description" id="description" required></textarea>
+    </div>
+    <div>
+      <label for="images">Изображения (не более 3)</label>
+      <input type="file" name="images" id="images" multiple required>
+    </div>
+    <button type="submit">Добавить элемент</button>
+  </form>
+
+  <footer>
+    <p>&copy; 2024 Portfolio Platform. Все права защищены.</p>
+  </footer>
+
+  <script src="/scripts.js"></script>
+</body>
+</html>
